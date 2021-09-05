@@ -33,7 +33,7 @@ class TestMainFormPage(TestCase):
     def test_html(self):
         texts_in_html = (
             TextRepetitions(text='<form', count=1),
-            TextRepetitions(text='<input', count=2),
+            TextRepetitions(text='<input', count=3),
             TextRepetitions(text='type="file"', count=1),
             TextRepetitions(text='type="submit"', count=1)
         )
@@ -44,3 +44,6 @@ class TestMainFormPage(TestCase):
                     text_repetition.text,
                     text_repetition.count
                 )
+
+class TestReadFile(TestCase):
+    pass
