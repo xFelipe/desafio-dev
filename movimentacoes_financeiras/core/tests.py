@@ -1,7 +1,10 @@
+from collections import namedtuple
 from django.test import TestCase
 from movimentacoes_financeiras.core.forms import FinancialTransactionsFileForm
 
-class TestMainPage(TestCase):
+TextRepetitions = namedtuple('TextRepetitions', ('text' ,'count'))
+
+class TestMainFormPage(TestCase):
     def setUp(self):
         self.response = self.client.get('/')
 
@@ -26,3 +29,18 @@ class TestMainPage(TestCase):
             self.response.context['form'],
             FinancialTransactionsFileForm
         )
+
+    def test_html(self):
+        texts_in_html = (
+            TextRepetitions(text='<form', count=1),
+            TextRepetitions(text='<input', count=2),
+            TextRepetitions(text='type="file"', count=1),
+            TextRepetitions(text='type="submit"', count=1)
+        )
+        with self.subTest():
+            for text_repetition in texts_in_html:
+                self.assertContains(
+                    self.response,
+                    text_repetition.text,
+                    text_repetition.count
+                )
