@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from movimentacoes_financeiras.core import views
+from core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.read_file)
+    path('', views.input_file, name='input_file'),
+    path('send', views.send_file, name='send_file')
 ]

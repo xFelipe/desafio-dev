@@ -7,10 +7,11 @@
     <title>Inserir movimentações financeiras</title>
 </head>
 <body>
-    <form action="/send" method="POST">
+    <form action="/send" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Enviar arquivo CNAB">
     </form>
+    
 </body>
 </html>

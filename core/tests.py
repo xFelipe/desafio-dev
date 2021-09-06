@@ -1,6 +1,6 @@
 from collections import namedtuple
 from django.test import TestCase
-from movimentacoes_financeiras.core.forms import FinancialTransactionsFileForm
+from core.forms import TransactionsFileForm
 
 TextRepetitions = namedtuple('TextRepetitions', ('text' ,'count'))
 
@@ -27,7 +27,7 @@ class TestMainFormPage(TestCase):
         """Context must have FinancialTransactions form"""
         self.assertIsInstance(
             self.response.context['form'],
-            FinancialTransactionsFileForm
+            TransactionsFileForm
         )
 
     def test_html(self):
