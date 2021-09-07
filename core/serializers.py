@@ -1,15 +1,12 @@
-from django import forms
+from rest_framework import serializers
 from core.models import Transaction
 
 
-class TransactionsFileForm(forms.Form):
-    cnab_file = forms.FileField(label="Selecione um arquivo CNAB")
-
-
-class TransactionForm(forms.ModelForm):
+class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
         fields = [
+            "id",
             "tipo",
             "data_e_hora",
             "valor",

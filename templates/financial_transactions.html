@@ -5,13 +5,104 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inserir movimentações financeiras</title>
+    <style>
+        table, th, td {
+            font-size: 1.2rem;
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 20px;
+        }
+
+        table {
+            margin: 50px auto 30px auto;
+            border: solid 1px #DDEEEE;
+            border-collapse: collapse;
+            border-spacing: 0;
+            font: normal 13px Arial, sans-serif;
+        }
+
+        thead th {
+            background-color: #DDEFEF;
+            border: solid 1px #DDEEEE;
+            color: #336B6B;
+            padding: 10px;
+            text-align: left;
+            text-shadow: 1px 1px 1px #fff;
+            font-weight: 900;
+        }
+
+        tbody td {
+            border: solid 1px #DDEEEE;
+            color: #333;
+            padding: 10px;
+            text-shadow: 1px 1px 1px #fff;
+        }
+
+        #id_cnab_file {
+        }
+
+        input {
+            position: relative;
+            overflow: hidden;
+            margin: 10px;
+        }
+        input.upload {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+    </style>
 </head>
 <body>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}ERRO: {% endif %}
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     <form action="/send" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.cnab_file }}
         <input type="submit" value="Enviar arquivo CNAB">
     </form>
+    <h1>Listagem de movimentações financeiras</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>tipo</th>
+                <th>data e hora</th>
+                <th>valor</th>
+                <th>cpf</th>
+                <th>cartao</th>
+                <th>dono da loja</th>
+                <th>nome da loja</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in transactions %}
+                <tr>
+                    <td>{{ t.tipo }}</td>
+                    <td>{{ t.data_e_hora }}</td>
+                    <td>R${{ t.valor }}</td>
+                    <td>{{ t.cpf }}</td>
+                    <td>{{ t.cartao }}</td>
+                    <td>{{ t.dono_da_loja }}</td>
+                    <td>{{ t.nome_loja }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     
 </body>
 </html>
