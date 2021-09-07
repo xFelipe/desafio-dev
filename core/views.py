@@ -34,7 +34,7 @@ class TransactionsListApi(APIView):
         for t in transactions:
             t.save()
             logging.info(t.__dict__)
-        return JsonResponse({"message": f"{len(transactions)} transações salvas com sucesso!"}, safe=True, status=201)
+        return JsonResponse({"message": f"{len(transactions)} Transações salvas com sucesso!"}, safe=True, status=201)
 
 
 # Create your views here.
@@ -55,7 +55,7 @@ def send_file(request):
         form.is_valid()
         transactions = read_file(form.cleaned_data["cnab_file"])
     except Exception as e:
-        messages.add_message(request, messages.ERROR, 'formatação de arquivo inválida.')
+        messages.add_message(request, messages.ERROR, 'Formatação de arquivo inválida.')
         logging.exception(e)
         return HttpResponseRedirect(r("input_file"))
 
