@@ -29,7 +29,7 @@ class TransactionsListApi(APIView):
         except Exception as e:
             logging.exception(e)
             return JsonResponse(
-                {"errors": dict(form.errors.items())}, safe=True, status=400
+                {"erro": "Formatação de arquivo inválida."}, safe=True, status=400
             )
         for t in transactions:
             t.save()
