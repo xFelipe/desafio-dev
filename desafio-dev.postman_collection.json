@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "8b7fc04f-7177-4c77-bfa6-e99b574cf824",
+		"name": "desafio-dev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Movimentacoes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v1/movimentacoes",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"movimentacoes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST upload movimentacoes",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "cnab_file",
+							"contentType": "",
+							"type": "file",
+							"src": "/home/felipe/projetos/desafio-dev/input/CNAB.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/movimentacoes",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"movimentacoes"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
