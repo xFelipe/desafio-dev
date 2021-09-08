@@ -15,8 +15,7 @@
 ### Rodar projeto localmente
  - `pipenv run ./manage.py runserver`
 
-## Uso da aplicação
-### Acessando página principal no navegador:
+## Acessando via navegador:
 - abrir `localhost:8000`, inserir arquivo `CNAB.txt`, enviar e ver as movimentações inseridas sendo listadas na tela.
 
 ## Uso da API:
@@ -53,4 +52,5 @@ Exemplo de resultado:
     ]
 }
 ```
-## Postman collection para auxiliar nos testes da API: `desafio-dev.postman_collection.json`
+## Postman collection para auxiliar nos testes da API:
+ - `desafio-dev.postman_collection.json`
