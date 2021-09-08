@@ -52,5 +52,4 @@ Exemplo de resultado:
     ]
 }
 ```
-## Postman collection para auxiliar nos testes da API:
- - `desafio-dev.postman_collection.json`
+Configurações prontas para testar a api(via postman) estão no arquivo `desafio-dev.postman_collection.json` que encontra-se na raiz do projeto.
