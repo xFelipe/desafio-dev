@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from core.forms import TransactionForm, TransactionsFileForm
 from core.models import Transaction
-from core.helpers import format_transactions, read_file
+from core.helpers import get_all_transactions_formatted, read_file
 import logging
 
 
@@ -17,7 +17,7 @@ class TransactionsListApi(APIView):
     renderer_classes = [JSONRenderer]
 
     def get(self, request):
-        transactions = format_transactions(Transaction.objects.all())
+        transactions = get_all_transactions_formatted(for_api=True)
         return JsonResponse({"transactions": transactions}, safe=True)
 
     def post(self, request):
@@ -29,7 +29,7 @@ class TransactionsListApi(APIView):
         except Exception as e:
             logging.exception(e)
             return JsonResponse(
-                {"erro": "Formatação de arquivo inválida."}, safe=True, status=400
+                {"error": "Formatação de arquivo inválida."}, safe=True, status=400
             )
         for t in transactions:
             t.save()
@@ -40,7 +40,7 @@ class TransactionsListApi(APIView):
 # Create your views here.
 def get_transactions(request):
     """HTML input file form"""
-    transactions = format_transactions(Transaction.objects.all().order_by('nome_loja', 'data_e_hora'))
+    transactions = get_all_transactions_formatted()
     # transactions = format_transactions(Transaction.objects.all().order_by('data_e_hora'))
     return render(
         request,
