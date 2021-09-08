@@ -38,9 +38,10 @@ class TransactionsListApi(APIView):
 
 
 # Create your views here.
-def input_file(request):
+def get_transactions(request):
     """HTML input file form"""
-    transactions = format_transactions(Transaction.objects.all())
+    transactions = format_transactions(Transaction.objects.all().order_by('nome_loja', 'data_e_hora'))
+    # transactions = format_transactions(Transaction.objects.all().order_by('data_e_hora'))
     return render(
         request,
         "financial_transactions.html",
@@ -48,8 +49,8 @@ def input_file(request):
     )
 
 
-def send_file(request):
-    """Persist financial transactions and redirect with message"""
+def post_file(request):
+    """Read and persist financial transactions and redirect with status message"""
     form = TransactionsFileForm(request.POST, request.FILES)
     try:
         form.is_valid()
@@ -57,11 +58,11 @@ def send_file(request):
     except Exception as e:
         messages.add_message(request, messages.ERROR, 'Formatação de arquivo inválida.')
         logging.exception(e)
-        return HttpResponseRedirect(r("input_file"))
+        return HttpResponseRedirect(r("get_transactions"))
 
     for t in transactions:
         t.save()
         logging.info(t.__dict__)
 
     messages.add_message(request, messages.SUCCESS, 'Transações inseridas com sucesso!')
-    return HttpResponseRedirect(r("input_file"))
+    return HttpResponseRedirect(r("get_transactions"))

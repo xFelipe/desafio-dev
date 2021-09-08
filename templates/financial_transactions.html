@@ -88,25 +88,27 @@
     <table>
         <thead>
             <tr>
-                <th>tipo</th>
-                <th>data e hora</th>
-                <th>valor</th>
-                <th>cpf</th>
-                <th>cartao</th>
-                <th>dono da loja</th>
-                <th>nome da loja</th>
+                <th>Nome da loja</th>
+                <th>Data e hora</th>
+                <th>Operação</th>
+                <th>Valor</th>
+                <th>Saldo em conta</th>
+                <th>CPF</th>
+                <th>Cartão</th>
+                <th>Dono da loja</th>
             </tr>
         </thead>
         <tbody>
             {% for t in transactions %}
                 <tr class="{% cycle 'row1' 'row2' %}"> 
-                    <td>{{ t.tipo }}</td>
+                    <td>{{ t.nome_loja }}</td>
                     <td>{{ t.data_e_hora }}</td>
+                    <td>{{ t.tipo }}</td>
                     <td>R${{ t.valor }}</td>
+                    <td>R${{ t.saldo_em_conta|floatformat:2 }}</td>
                     <td>{{ t.cpf }}</td>
                     <td>{{ t.cartao }}</td>
                     <td>{{ t.dono_da_loja }}</td>
-                    <td>{{ t.nome_loja }}</td>
                 </tr>
             {% endfor %}
         </tbody>

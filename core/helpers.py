@@ -32,20 +32,28 @@ TRANSACTION_TYPES = {
 }
 
 
-def format_transactions(transactions: list) -> list[dict]:
-    return [
-        {
-            "id": t.id,
-            "tipo": TRANSACTION_TYPES[t.tipo].name,
-            "data_e_hora": t.data_e_hora,
-            "valor": TRANSACTION_TYPES[t.tipo].operation(t.valor),
-            "cpf": t.cpf,
-            "cartao": t.cartao,
-            "dono_da_loja": t.dono_da_loja,
-            "nome_loja": t.nome_loja,
-        }
-        for t in transactions
-    ]
+def format_transactions(ordered_transactions: list) -> list[dict]:
+    formated_transactions = []
+    for t in ordered_transactions:
+        transaction_value = TRANSACTION_TYPES[t.tipo].operation(t.valor)
+        previous_total = sum([
+            ft['valor'] for ft in formated_transactions
+            if ft['nome_loja']==t.nome_loja
+        ])
+        formated_transactions.append(
+            {
+                "id": t.id,
+                "tipo": TRANSACTION_TYPES[t.tipo].name,
+                "data_e_hora": t.data_e_hora,
+                "valor": transaction_value,
+                "cpf": t.cpf,
+                "cartao": t.cartao,
+                "dono_da_loja": t.dono_da_loja,
+                "nome_loja": t.nome_loja,
+                "saldo_em_conta": previous_total + transaction_value
+            }
+        )
+    return formated_transactions
 
 
 def read_file(file: InMemoryUploadedFile):

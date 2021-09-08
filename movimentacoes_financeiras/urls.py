@@ -19,7 +19,7 @@ from core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.input_file, name='input_file'),
-    path('send', views.send_file, name='send_file'),
+    path('', views.get_transactions, name='get_transactions'),
+    path('send', views.post_file, name='post_file'),
     path('api/v1/movimentacoes', views.TransactionsListApi.as_view()),
 ]
